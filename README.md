@@ -12,3 +12,8 @@ Civil Name ESP
 Delete Civil(good for fps ig?)
 Delete Thief(well you only need to worry about homeless now)
 ```
+
+## Credits
+
+Me - for making whole trainer <br/>
+[EthanEdits](https://github.com/ethanedits) - For making render.cs
