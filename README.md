@@ -9,6 +9,7 @@ Thief Snaplines
 Civil Snaplines
 Thief Name ESP
 Civil Name ESP
+Thief Aimbot
 Delete Civil(good for fps ig?)
 Delete Thief(well you only need to worry about homeless now)
 Anti aim(spinbot)(made it for laugh, it just spins the civils)
