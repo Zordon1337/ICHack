@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Tayx.Graphy.Utils.NumString;
@@ -15,7 +16,8 @@ namespace HD
         Thief[] Thiefs;
         Civil[] Civils;
 
-        
+        [DllImport("user32.dll")]
+        static extern void mouse_event(int dwFlags, int dx, int dy, int dwData, int dwExtraInfo);
         static System.Random Rand = new System.Random();
         
         IEnumerator SpinBotCivil()
@@ -93,7 +95,26 @@ namespace HD
         }
         void Update() 
         {
-            
+            if(config.AimbotThief)
+            {
+                foreach(var Thief in Thiefs)
+                {
+                    Vector3 World2Screen = Camera.main.WorldToScreenPoint(Thief.transform.position);
+                    
+                    if(World2Screen != Vector3.zero)
+                    {
+                        Vector2 Target = new Vector2(World2Screen.x, Screen.height - World2Screen.y);
+                        // if distance is less than 300 do aimbot
+                        if (Vector3.Distance(Camera.main.transform.position, Thief.transform.position) <= 10 )
+                        {
+                            double AimX = Target.x - Screen.width / 2.0f;
+                            double AimY = Target.y - Screen.height / 2.0f-420f; // 420 isn't random number :troll_face:
+                            mouse_event(0x0001, (int)AimX, (int)AimY, 0, 0);
+                        }
+                        
+                    }
+                }
+            }
         }
         void RenderGUI(int windowID)
         {
@@ -121,7 +142,7 @@ namespace HD
             {
                 config.CivilName = !config.CivilName;
             }
-            if (GUILayout.Button("Thief lLines ESP: " + config.ThiefLines))
+            if (GUILayout.Button("Thief Lines ESP: " + config.ThiefLines))
             {
                 config.ThiefLines = !config.ThiefLines;
             }
@@ -129,11 +150,19 @@ namespace HD
             {
                 config.ThiefName = !config.ThiefName;
             }
-            if (GUILayout.Button("Civil does hvh(spinbot): " + config.CivilDoesHvH)) ;
+            if (GUILayout.Button("Civil does hvh(spinbot): " + config.CivilDoesHvH))
+            {
+                config.CivilDoesHvH = !config.CivilDoesHvH;
+            }
+            if (GUILayout.Button("Aimbot Thief: "+config.AimbotThief))
+            {
+                config.AimbotThief = !config.AimbotThief;
+            }
             if (GUILayout.Button("Add 1 milion noney"))
             {
                 PlayerPrefs.SetFloat("money", 1000000);
             }
+            
             GUILayout.Label("ESP Render Distance");
             config.distanceesp = GUILayout.HorizontalSlider(config.distanceesp, 1, 100);
         }

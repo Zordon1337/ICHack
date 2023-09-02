@@ -12,6 +12,7 @@ namespace HD
         public static bool CivilName = false;
         public static bool ThiefLines = false;
         public static bool ThiefName = false;
+        public static bool AimbotThief = false;
         public static bool CivilDoesHvH = false;
         public static bool MenuOpen = true;
 
